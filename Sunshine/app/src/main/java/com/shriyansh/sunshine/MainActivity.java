@@ -4,6 +4,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -13,6 +14,12 @@ import android.os.Build;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -26,7 +33,7 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container, new PlaceholderFragment())
+                    .add(R.id.container, new ForecastFragment())
                     .commit();
         }
     }
@@ -54,40 +61,5 @@ public class MainActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    /**
-     * A placeholder fragment containing a simple view.
-     */
-    public static class PlaceholderFragment extends Fragment {
 
-        public PlaceholderFragment() {
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-            String forecastList[]={
-                    "Today - Sunny  -  88 / 63",
-                    "Monday 16 - Clear  -  45 / 48",
-                    "Tuesday 17 - Rain  -  16 / 49",
-                    "Thursday 18- Sunny  -  88 / 63",
-                    "Friday 19 - Clear  -  45 / 48",
-                    "Saturday 20 - Rain  -  16 / 49",
-                    "Sunday 21 - Sunny  -  88 / 63",
-                    "Monday 22 - Clear  -  45 / 48",
-                    "Tuesday 23 - Rain  -  16 / 49",
-                    "Thursday 24 - Sunny  -  88 / 63",
-                    "Friday 25 - Clear  -  45 / 48",
-                    "Saturday 26 - Rain  -  16 / 49"
-            };
-
-            List<String> weekForecast = new ArrayList<String>(Arrays.asList(forecastList));
-
-            ArrayAdapter<String> forecastAdapter= new ArrayAdapter<String>(getActivity(),R.layout.list_item_forecast,R.id.list_item_forecast_textview,forecastList);
-            ListView listView=(ListView)rootView.findViewById(R.id.listview_forecast);
-            listView.setAdapter(forecastAdapter);
-
-            return rootView;
-        }
-    }
 }
